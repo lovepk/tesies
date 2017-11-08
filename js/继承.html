@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>子类划分</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+	// 父类
+	var Person = function(fname, lname) {
+		console.log('Person 执行了');
+		this.firstname = fname;
+		this.lastname = lname;
+		this.gender = '男';
+		this.fun =  function() {
+			console.log('i am a function')
+		}
+	}
+	// 子类
+	var Superhero = function(fname, lname, powers) {
+		console.log('Superhero 执行了');
+		this.powers = powers;
+		this.gender = '女';
+		// 通过更改this指向，Person实例的this可以用的功能，Superhero的实例也可以使用，这不就是继承吗
+		// this指向更改后 Superhero构造函数也有了this.firstname, this.lastname  不过call需要传参数
+		Person.call(this, fname, lname);
+		
+	}
+	var superman = new Superhero('Clak', 'wj', ["fight","fire"]);
+	console.log(superman);
+	console.log(Superhero); //Superhero这个构造函数本身并没有变化，是它的实例继承了Person的属性.
+	// 当new Superhero('Clak', 'wj', ["fight","fire"]) 的时候 先执行Superhero的构造函数， 然后因为Person.call(this, fname, lname);
+	// Person的构造函数执行，但是Person里的this指向变成了Superhero的实例，因此该实例继承了Person的一些属性。
+</script> 
