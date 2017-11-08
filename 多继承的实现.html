@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// 一个简单的mixin
+	function extend(destclass,srccalss) {
+		var destproto = destclass.prototype;
+		var srcproto = srccalss.prototype;
+		for(var method in srcproto) {
+			console.log(method)
+			if(!destproto[method]) {
+				destproto[method] = srcproto[method];
+			}
+		}
+	}
+	function Book() {
+	}
+	Book.prototype.printname = function() {
+		console.log('i am a book, name hello')
+	}
+	function JS() {
+	}
+	extend(JS, Book);
+	var js = new JS();
+	console.log(js)
+</script>
+<script type="text/javascript">
+	// mixin实现多继承
+	function extend(destclass) {
+		console.log(arguments)
+		// 因为arguments不是一个数组，而我们需要一个数组，这句的作用就是将arguments变为
+		var classs = Array.prototype.slice.call(arguments, 1);
+		console.log(classs);
+		for(var i=0; i<classs.length;i++) {
+			var srccalss = classs[i];
+			var srcproto = srccalss.prototype;
+			var destproto = destclass.prototype;
+			for(var method in srcproto) {
+				if(!destproto[method]) {
+					destproto[method] = srcproto[method];
+				}
+			}
+		}
+	}
+	function Book() {
+	}
+	Book.prototype.getName = function() {
+
+	}
+	Book.prototype.setName = function() {
+
+	}
+	function Tech() {
+
+	}
+	Tech.prototype.showTech = function() {
+
+	}
+	function JS() {
+
+	}
+	extend(JS, Book, Tech);
+	var js = new JS();
+	console.log(js)
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>子类划分</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+	// 父类
+	var Person = function(firstname, lastname) {
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.gender = 'male';
+		this.fun =  function() {
+			console.log('iamfun')
+			console.log(this.go)
+		}
+	}
+	Person.prototype.abc = 'abc';
+	// 子类
+	var Superhero = function(firstname, lastname, powers) {
+		this.go = 'go';
+		// 通过更改this指向，Person实例的this可以用的功能，Superhero的实例也可以使用，这不就是继承吗
+		Person.call(this, firstname, lastname);
+		this.powers = powers;
+	}
+	Superhero.prototype = Object.create(Person.prototype);
+	// console.log(Person.prototype)
+	// Object.create() 根据指定的原型对象创建一个新的对象
+	// console.log(Object.create(Person.prototype))
+	// Superhero.prototype = Object.create(Person.prototype);
+	var superman = new Superhero('Clak', 'wangjun', ["fight","fire"]);
+	// Person.prototype.fun.call();
+	// superman.fun();
+	console.log(superman)
+	// console.log({})
+	// console.log(Array)
+	// console.log(Function)
+</script> 
