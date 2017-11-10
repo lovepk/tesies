@@ -35,7 +35,7 @@ define(function(require, exports, module) {
 			$.each(images, function(index, value) {
 				var $li = $([
 					'<div id="imgId' + index + '" class="img-item thumbnail">',
-						'<img src=">' + value.imgurl + '" />',
+						'<img src="' + value.imgurl + '" />',
 					'</div>'
 				].join(''));
 				self.elShowList.append($li);
@@ -89,6 +89,7 @@ define(function(require, exports, module) {
 		    	self.elShowList.on('click', '#del' + file.id, function() {
 		            $("#imgId"+file.id).remove();
 		            self.uploader.removeFile(file);
+		            self.delmemoryImg(file.id);
 		        }) 
 			    // 创建缩略图 如果为非图片文件，可以不用调用此方法。thumbnailWidth x thumbnailHeight 为 100 x 100
 			    self.uploader.makeThumb( file, function( error, src ) {
@@ -157,6 +158,20 @@ define(function(require, exports, module) {
 			    // $error.text('上传失败');
 			});
 		},
+		// 删除图片（并未真正删除，只是从预览区清除，从url存储处剔除，真正提交时就没有删除的图片地址了）
+		delmemoryImg: function(fid) {
+			var self = this,
+				strjson = self.memoryImgs.val() || [],
+				images = JSON.parse(strjson);
+			for(var i=0; i<images.length; i++) {
+				if(images[i].fid == fid) {
+					images.splice(i, 1);
+					self.memoryImgs.val(JSON.stringify(images));
+					return;
+				}
+			}
+		},
+		// 添加插件样式
 		css:function () {
 			var cssText = ""+"@charset \"utf-8\";.webuploader-element-invisible{clip:rect(1px,1px,1px,1px);position:absolute !important;}";
 

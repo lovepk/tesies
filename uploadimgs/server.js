@@ -1,12 +1,24 @@
-var express = require('express');
-var app = express();
+var express = require('express'),
+	app 	= express(),
+	bodyparser = require('body-parser'),
+	multer	= require('multer');
 
+var storage = multer.diskStorage({
+	destination: 'www/uploads',
+	filename: function(req, file, cb) {
+		var orname = file.originalname,
+			arr = orname.split('.'),
+			filetype = arr[arr.length - 1];
+		newname = Date.now() + '.' + filetype;
+		cb(null, newname);
+	}
+});
+var uploads = multer({storage});
 app.use(express.static(__dirname + '/www'));
-app.get('/uploadimg', function(req, res) {
-	console.log(req)
-	res.send({msg: 'msg'})
+app.post('/uploadimg', uploads.array('file'), function(req, res) {
+	res.send({msg: 'https://www.npmjs.com/static/images/binoculars-dot.svg'})
 })
 
-app.listen(3000, function() {
+app.listen(3001, function() {
 	console.log('running...');
 })
