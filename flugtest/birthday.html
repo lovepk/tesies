@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="../utility/jquery-3.2.1.js"></script>
+	<script src="../utility/sea.js"></script>
+</head>
+<body>
+	<div class="ui-group-birth">
+        <input type="hidden" name="birthday" id="iptBirthday" value="" />
+        <select id="birthYear" class="ui-select ui-select-year" data-value="2013">
+            <option value="">选择年</option>
+        </select>
+        年
+        <select id="birthMonth" class="ui-select ui-select-month" data-value="2">
+            <option value="">选择月</option>
+        </select>
+        月
+        <select id="birthDay" class="ui-select ui-select-day">
+            <option value="">选择日</option>
+        </select>
+        <span class="age"><em id="plAge">26</em>岁 <em id="plConstellation">白羊座</em></span>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+	 seajs.use('../utility/src/birthday1.js', function(birthday) {
+	 	var ipt = $('#iptBirthday'),
+                v = ipt.val(), 
+                arr = v.split('-');
+            
+            if (arr.length == 3) {
+                $('#birthYear').attr('data-value', arr[0]);
+                $('#birthMonth').attr('data-value', arr[1]);
+                $('#birthDay').attr('data-value', arr[2]);
+            }
+            birthday({
+                year: '#birthYear',
+                month: '#birthMonth',
+                day: '#birthDay',
+                range: [1980, 0],
+                onChange: function (y, m, d) {
+                    if (y) {
+                        $('#plAge').html((new Date()).getFullYear() - y);
+                    }
+                    if (m && d) {
+                        // $('#plConstellation').html(constellation.get(m, d));
+                    }
+
+                    if (y && m && d) {
+                        ipt.val(y + '-' + m + '-' + d);
+                    }
+                }
+            });
+	 });
+</script>
