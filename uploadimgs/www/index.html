@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>上传图片</title>
+	<script src="./lib/jquery-3.2.1.js"></script>
+	<script src="./lib/sea.js"></script>
+	<style type="text/css">
+		.uploadbox { width: 100%; height: auto;position:relative; padding: 2px;}
+		.imglist { position: relative; min-height: 200px; box-sizing: border-box;}
+		.uploadbox .btns { margin-top: 20px; }
+		.img-item { display: inline-block; position: relative; width: auto;margin-left:2px;}
+		.imglist .img-item a { position: absolute; width: 30px;height: 30px;
+			right: 0;top: 0;
+			background: url(./images/del.png);
+		}
+		#selbtn { position: relative; display: inline-block; height: 200px; width: 32%; border: 1px solid #ccc;margin-left: 2px;}
+		#selbtn .webuploader-pick {
+			width: 100%;
+			height: 100%;
+			background-image: url(./images/image.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		.uploadbox .btns .upbtn {
+			display: inline-block;
+			width: 100px;
+			line-height: 30px;
+			background-color: green;
+			color: #fff;
+			font-size: 13px;
+			text-align: center;
+			cursor: pointer;
+		}
+		#errmsg{position: absolute;height: 30px; top: 20px; left: 0;text-align: center;width: 100%;}
+		#errmsg i{padding: 10px 15px;border-radius: 10px;color: #fff;background-color: orange;display:none;font-style: normal;}
+	</style>
+</head>
+<body>
+	<div class="uploadbox">
+		<div class="imglist" id="imglist">
+			<div id="selbtn"></div>
+		</div>
+		<div class="btns">
+			<div class="upbtn" id="upbtn">上传图片</div>
+			<div class="upednum" id="upednum"></div>
+		</div>
+		<div id="errmsg"><i class="errmsg"></i></div>
+	</div>
+	<input type="hidden" name="" id="memoryImgs" value="[]">
+</body>
+</html>
+<script type="text/javascript">
+	seajs.use('./js/uploadimgs.js',function(setupload) {
+		setupload({
+			$showImglist: '#imglist',
+			$uploaded: '#upednum',
+			$selbtn: '#selbtn',
+			$upbtn: '#upbtn',
+			$memoryImgs: '#memoryImgs',
+			accept:{
+				title: 'Images',
+		        extensions: 'gif,jpg,bmp,png',
+		        mimeTypes: 'image/*'
+			},
+			server: '/uploadimg',
+			addCallback: function(file, res) {
+				var strjson = $('#memoryImgs').val(),
+					images 	= JSON.parse(strjson) || [];
+				for(var i = 0; i < images.length; i++) {
+					if(file.id == images[i].fid) {
+						//为上传成功的图片填充后台返回数据
+					}
+				}
+			}
+		})
+	})
+
+	// $.ajax({
+	// 	url: '/uploadimg',
+	// 	method: 'GET',
+	// 	beforeSend: function() {
+	// 		console.log('before')
+	// 	},
+	// 	success: function(res) {
+	// 		console.log(res)
+	// 		console.log('ok')
+	// 	}
+	// })
+</script>
