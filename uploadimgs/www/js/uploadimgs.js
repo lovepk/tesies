@@ -21,6 +21,7 @@ define(function(require, exports, module) {
 			this.bind();
 			this.css();
 			this.initImgList();
+			this.countShowNum();
 			console.log(this.selbtn.length)
 		},
 		// 修改时初始化渲染
@@ -53,12 +54,18 @@ define(function(require, exports, module) {
 				self.selbtn.show();
 			}
 		},
-
 		bind: function() {
 			var self = this;
 			// 点击上传按钮
 			self.elUpbtn.click(function(event) {
 				self.uploader.upload();
+				if(self.uploader.getFiles().length == 0) {
+					$('#errmsg .errmsg').text('没有可上传的图片!').show().delay(1000).fadeOut();
+				}
+			})
+			self.elShowList.off('click', '.del').on('click', '.del', function(event) {
+				event.preventDefault();
+				self.delmemoryImg($(this));
 			})
 			// 上传配置
 			self.uploader = WebUploader.create({
@@ -72,24 +79,24 @@ define(function(require, exports, module) {
     			// 文件大小
     			fileSingleSizeLimit: 512 * 1024,
     			fileNumLimit: 3,
-    			accept: self.opt.accept
+    			accept: self.opt.accept,
+    			compress: false
 			})
 			// 监听 当有文件添加进来的时候
 			self.uploader.on( 'fileQueued', function( file ) {
 				// console.log(file)
 			    var $li = $(
 		            '<div id="imgId' + file.id + '" class="img-item thumbnail">' +
-		                '<img><a href="javascript:;" id="del' + file.id + '"></a>' +
+		                '<img><a href="javascript:;" class="del"></a>' +
 		            '</div>'
 		        ),
 		        $img = $li.find('img');
 			    // 将选择的图片添加到按钮前
 			    $li.insertBefore(self.selbtn);
 			    // 为每个添加到队列中的图片添加删除监听
-		    	self.elShowList.on('click', '#del' + file.id, function() {
-		            $("#imgId"+file.id).remove();
+		    	$li.off('click', '.del').on('click', '.del', function() {
 		            self.uploader.removeFile(file);
-		            self.delmemoryImg(file.id);
+		            self.delmemoryImg($(this), file.id);
 		        }) 
 			    // 创建缩略图 如果为非图片文件，可以不用调用此方法。thumbnailWidth x thumbnailHeight 为 100 x 100
 			    self.uploader.makeThumb( file, function( error, src ) {
@@ -112,16 +119,14 @@ define(function(require, exports, module) {
 			});
 
 			self.uploader.on('fileDequeued', function() {
-				self.countShowNum();
+				// console.log('队列删除')
 			})
 
 			// 文件上传成功，给item添加成功class, 用样式标记上传成功。
 			self.uploader.on( 'uploadSuccess', function( file, res ) {
-				console.log(file)
-				var strjson = self.memoryImgs.val() || [],
-					images = JSON.parse(strjson);
 				// 此处要回调自定义挂载一些后台返回的变量
-					self.opt.addCallback(file, res);
+				self.opt.addCallback(file, res);
+
 			});
 			self.uploader.on('error', function(handler) {
 				switch(handler){
@@ -133,7 +138,7 @@ define(function(require, exports, module) {
 					break;
 					case 'Q_EXCEED_SIZE_LIMIT':
 					case 'F_EXCEED_SIZE':
-					err_msg = "文件过大";
+					err_msg = "图片大小不得超过512k";
 					break;
 					case 'F_DUPLICATE':
 					err_msg = "请勿上传重复图片";
@@ -145,8 +150,8 @@ define(function(require, exports, module) {
 				$('#errmsg .errmsg').text(err_msg).show().delay(1000).fadeOut();
 			});
 			// 文件上传失败，显示上传出错。
-			self.uploader.on( 'uploadError', function( file ) {
-				console.log(file)
+			self.uploader.on( 'uploadError', function( file, res ) {
+				console.log('错误信息')
 			    // var $li = $( '#'+file.id ),
 			    //     $error = $li.find('div.error');
 
@@ -159,11 +164,20 @@ define(function(require, exports, module) {
 			});
 		},
 		// 删除图片（并未真正删除，只是从预览区清除，从url存储处剔除，真正提交时就没有删除的图片地址了）
-		delmemoryImg: function(fid) {
-			var self = this,
+		// 修改时根据url来删，选择过程中根据fid占位符来删
+		delmemoryImg: function($ele, fid) {
+			var self 	= this,
 				strjson = self.memoryImgs.val() || [],
-				images = JSON.parse(strjson);
+				images 	= JSON.parse(strjson),
+				url		= $ele.closest('.img-item').find('img').attr('src');
+			$ele.closest('.img-item').remove();
+			self.countShowNum();
 			for(var i=0; i<images.length; i++) {
+				if(url && url == images[i].url) {
+					images.splice(i, 1);
+					self.memoryImgs.val(JSON.stringify(images));
+					return;
+				}
 				if(images[i].fid == fid) {
 					images.splice(i, 1);
 					self.memoryImgs.val(JSON.stringify(images));

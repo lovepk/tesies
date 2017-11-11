@@ -70,8 +70,13 @@
 				for(var i = 0; i < images.length; i++) {
 					if(file.id == images[i].fid) {
 						//为上传成功的图片填充后台返回数据
+						images[i] = {
+							'fid': file.id,
+							'url': res.msg
+						}
 					}
 				}
+				$('#memoryImgs').val(JSON.stringify(images));
 			}
 		})
 	})
