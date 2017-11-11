@@ -37,26 +37,31 @@
 	</style>
 </head>
 <body>
-	<div class="uploadbox">
+	<div style="width: 300px;height: 200px;position: relative; display: none;" id="box">
+		<div class="uploadbox">
 		<div class="imglist" id="imglist">
-			<div id="selbtn"></div>
+		<div id="selbtn"></div>
+			</div>
+			<div class="btns">
+				<div class="upbtn" id="upbtn">上传图片</div>
+				<div class="upednum" id="upednum"></div>
+			</div>
+			<div id="errmsg"><i class="errmsg"></i></div>
 		</div>
-		<div class="btns">
-			<div class="upbtn" id="upbtn">上传图片</div>
-			<div class="upednum" id="upednum"></div>
-		</div>
-		<div id="errmsg"><i class="errmsg"></i></div>
 	</div>
+	
 	<input type="hidden" name="" id="memoryImgs" value="[]">
 </body>
 </html>
 <script type="text/javascript">
 	seajs.use('./js/uploadimgs.js',function(setupload) {
-		setupload({
+		var up = setupload({
 			$showImglist: '#imglist',
 			$uploaded: '#upednum',
 			$selbtn: '#selbtn',
 			$upbtn: '#upbtn',
+			width: 300,
+			height: 200,
 			$memoryImgs: '#memoryImgs',
 			accept:{
 				title: 'Images',
@@ -80,7 +85,9 @@
 			}
 		})
 	})
-
+	setTimeout(function() {
+		$('#box').show();
+	},3000)
 	// $.ajax({
 	// 	url: '/uploadimg',
 	// 	method: 'GET',

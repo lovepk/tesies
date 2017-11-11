@@ -11,18 +11,16 @@ define(function(require, exports, module) {
 	uploadImage.prototype = {
 		init: function() {
 			var self = this;
-			console.log(this.opt)
 			this.elShowList = $(self.opt.$showImglist);
 			this.elUped = $(self.opt.$uploaded);
 			this.elUpbtn = $(self.opt.$upbtn);
 			this.memoryImgs = $(self.opt.$memoryImgs);
 			this.selbtn = $(self.opt.$selbtn);
-			this.thumbnailWidth = parseInt((this.elShowList.width() - 10) / 3);
+			this.thumbnailWidth = parseInt((self.opt.width - 10) / 3);
 			this.bind();
 			this.css();
 			this.initImgList();
 			this.countShowNum();
-			console.log(this.selbtn.length)
 		},
 		// 修改时初始化渲染
 		initImgList: function() {
@@ -63,6 +61,10 @@ define(function(require, exports, module) {
 					$('#errmsg .errmsg').text('没有可上传的图片!').show().delay(1000).fadeOut();
 				}
 			})
+			// 解决容器隐藏再显示时按钮大小不可控制的的bug
+			self.elShowList.on('mouseover', '.webuploader-pick', function() {
+				self.uploader.refresh();
+			})
 			self.elShowList.off('click', '.del').on('click', '.del', function(event) {
 				event.preventDefault();
 				self.delmemoryImg($(this));
@@ -70,7 +72,7 @@ define(function(require, exports, module) {
 			// 上传配置
 			self.uploader = WebUploader.create({
 				// swf文件路径
-    			//swf: '',
+    			// swf: './lib/Uploader.swf',
     			// 文件接收服务端。
     			server: self.opt.server,
     			// 选择文件的按钮。可选。
@@ -105,7 +107,7 @@ define(function(require, exports, module) {
 			            return;
 			        }
 			        $img.attr( 'src', src );
-			    }, self.thumbnailWidth, 200 );
+			    }, self.thumbnailWidth, self.opt.height );
 
 			    //加入列队在隐藏域添加json对象占位
 			    var strjson = self.memoryImgs.val(),
@@ -205,6 +207,6 @@ define(function(require, exports, module) {
 		}
 	}
 	return function(obj) {
-		new uploadImage(obj)
+		return new uploadImage(obj)
 	}
 })
