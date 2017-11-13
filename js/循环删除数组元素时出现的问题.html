@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	var arr = [1,1,2,3,4,1,1,4,1,1,1];
+	for(var i=0; i<arr.length; i++) {
+		console.log(arr[i])
+		if(arr[i] == 1) {
+			arr.splice(i, 1);
+			i--
+		}
+	}
+	// 每次删除匹配到的元素时，数组的长度发生变化，但是i是一直增加的，下一个数组元素的下标会前移，
+	// 那么就会忽略下一个元素是否匹配，导致删除不掉一些本应该匹配到的元素
+
+	// 解决办法：
+	// 1：新建一个数组，把不匹配的元素放进去
+	// 2：每次删除之后i--,使的下一个元素不能被忽略掉。
+	console.log(arr);
+</script>
