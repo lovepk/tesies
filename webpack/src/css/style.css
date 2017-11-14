@@ -1,0 +1,17 @@
+.con{
+	color: red;
+	width: 100px;
+	height: 100px;
+	background: url(../images/1.jpg) no-repeat 100%;
+
+}
+@font-face {
+	font-family: 'myfont';
+	src: url('../images/w3cplus.woff') format('woff2');
+	font-weight: 600;
+	font-style: normal;
+}
+.logo{
+	color: blue;
+	font-family: 'myfont';
+}
