@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+		.unselect{
+			-webkit-touch-callout: none;  
+		    -webkit-user-select: none;  
+		    -khtml-user-select: none;  
+		    -moz-user-select: none;  
+		    -ms-user-select: none;  
+		    user-select: none; 
+		}
+	</style>
+	<script src="jquery-1.7.2.min.js"></script>
+	<noscript><iframe src=*.html></iframe></noscript>
+</head>
+<body>
+	<div class="unselect" onselectstart="return false">fhsjdfhskjdfhkjshdfkjshdfjkshdfjkshdfsjkdhfkjshdfkjshdfkjshdfjkhsdjkfhskjdhfksjdhfkshdfkjsdhfjksdhfkjsdfhskjdfhsfdhskjdfhkjshfkjsdhfjkshdfkjsdhfjkshdfkjsdf
+		<input type="" name="" value="sdfsdfffffff">
+	</div>
+	<div>sdfsdfsdfdfsdf</div>
+	<input type="" name="">
+</body>
+</html>
+<script type="text/javascript">
+	document.oncontextmenu = function(e){
+		return false;
+	}
+	document.addEventListener('keydown', function(e) {
+		if(e.keyCode == 123) {
+			e.preventDefault();
+			return;
+		}
+		if(e.key == 'F12') {
+			e.preventDefault();
+			return;
+		} 
+		if (e.ctrlKey==1){
+			if(document.all){
+			   	k=e.keyCode
+			}else{
+			   	k=e.which
+			}
+			// 禁止ctrl+a/c/v
+			if(k == 65 || k==86 || k==67) {
+				e.preventDefault();
+			}
+		}
+	})
+	// $(document).on('contextmenu', function(e) {
+	// 	e.preventDefault()
+	// })
+</script>

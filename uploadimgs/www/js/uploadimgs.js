@@ -198,6 +198,10 @@ define(function(require, exports, module) {
 				console.log('complete')
 				// self.uploader.reset();
 			})
+			self.uploader.on('uploadFinished', function() {
+				console.log('finshed')
+				self.uploader.reset();
+			})
 		},
 		// 删除图片（并未真正删除，只是从预览区清除，从url存储处剔除，真正提交时就没有删除的图片地址了）
 		// 修改时根据url来删，选择过程中根据fid占位符来删
