@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+
+	// 循环以逗号后的i为判断条件
+	// var i = 3;
+    // while(i--,i){
+    // 	console.log('111')
+    // }
+
+
+	function _getIeVersion() {
+        var v = 3,
+        	doc = window.document;
+            p = doc.createElement('p'),
+            all = p.getElementsByTagName('i');
+        // 对于ie10及以上此方法失效，因为ie10以上不支持if IE了
+        // ie10 以上可以根据window.document.documentMode来进行判断
+        // window.ActiveXObject 和 版本号同时存在的时候才能确定ie浏览器版本
+        // 或者根据window.document.documentMode直接进行判断。
+        while (
+				p.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+                all[0]);
+        return v > 4 ? v : 0;
+    }
+    console.log(window.document.documentMode)
+    console.log(_getIeVersion());
+    console.log(window.navigator.mimeTypes);
+</script>
