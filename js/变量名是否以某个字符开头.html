@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	// 判断字符串是否以_或$开头
+function isReserved (str) {
+  var c = (str + '').charCodeAt(0)
+  return c === 0x24 || c === 0x5F
+}
+console.log(isReserved('$set'));
+console.log(isReserved('_set'));
+console.log(isReserved('@set'));
+
+
+// 获取引号中的内容
+function stripQuotes (str) {
+  var a = str.charCodeAt(0)
+  var b = str.charCodeAt(str.length - 1)
+  return a === b && (a === 0x22 || a === 0x27)
+    ? str.slice(1, -1)
+    : str
+}
+console.log(stripQuotes('abcde'))
+console.log(stripQuotes("abcde"))
+
+
+// 将破折式转换为驼峰式的
+var camelizeRE = /-(\w)/g  //捕获括号 捕获到ng-module 的 m
+function camelize (str) {
+  return str.replace(camelizeRE, toUpper)
+}
+
+// 将匹配到的字符串也传进来了，有两个参数-m  和 m (m是捕获括号捕获到的字符)
+function toUpper (_, c) {
+	console.log(_);
+	console.log(c);
+  return c ? c.toUpperCase() : ''
+}
+// console.log(camelize('ngModule'));
+// console.log(camelize('ng-module'));
+
+// 将my-component 转换为 MyComponent
+var classifyRE = /(?:^|[-_\/])(\w)/g
+function classify (str) {
+  return str.replace(classifyRE, toUpper)
+}
+console.log(classify('my-component'));
+
+console.log(Object.create(Array.prototype))
+var arr = [1,2,3]
+// 0的位置是1的前面，删除一个，然后添加一个3，返回的是被删除的元素组成的数组
+console.log(arr.splice(0,1,3));
+console.log(arr)
+</script>

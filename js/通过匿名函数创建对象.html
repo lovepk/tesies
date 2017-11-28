@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	function Vue(option) {
+		this._init(option);
+	}
+	var func = function(Vue) {
+		Vue.prototype._init = function(option) {
+			option = option || {};
+			console.log(this.constructor.option);
+			console.log('初始化')
+		}
+	}
+	// 通过函数对Vue构造器进行了扩展。
+	func(Vue);
+	new Vue({a:'a'})
+</script>

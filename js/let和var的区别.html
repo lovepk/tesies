@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	console.log(a);//变量提升，指的是变量的声明的提升，赋值可是没有提升的，此处相当于在console.log(a)上面声明了a:var a;但是没初始化。所以是undefined;
+	var a = 1;
+	// 函数提升
+	console.log(f1); //此处是函数提升，只有声明式函数有函数提升，将整个函数作用域的声明提升到文件开头处。
+	console.log(f2); // 此处是变量提升
+	// 函数声明
+	function f1() {
+		console.log('f1')
+	}
+	// 函数表达式（字面量函数）
+	var f2 = function() {
+		console.log('f2')
+	}
+	// es5及之前只有全局作用域和函数作用域
+	// es6通过let增加了块级作用域，于是就有了暂时性死区：let 声明一个变量之前使用这个变量是不允许的。typeof也不行。。。
+	// let实现了立即执行函数的功能。
+
+	var a = [];
+	for(var i=0; i<5; i++) {
+		a[i] = function() {
+			console.log(i);
+		}
+	}
+	// 由于最后一轮循环i的值是5,而每个a函数内部的i指向同一个地址，所以每个都会打印出1。。。
+	a[0]();
+	a[1]();
+	a[2]();
+	a[3]();
+	a[4]();
+
+	var b = [];
+	for(let j=0; j<5; j++) {
+		b[j] = function() {
+			console.log(j)
+		}
+	}
+	// 由于使用了let，在5个块级作用中存在5个指向不同地址的j，分别是0,1,2,3,4。 之所以会不一样，是因为js引擎记住了上一轮循环的j的值
+	b[0]();
+	b[1]();
+	b[2]();
+	b[3]();
+	b[4]();
+</script>

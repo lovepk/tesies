@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+	// 是否拥有
+	function hasOwn(obj, key) {
+		return hasOwnProperty.call(obj,key)
+	}
+	var person = {
+		foot: 'foot',
+		year: 18
+	}
+	console.log(hasOwn(person,'year'))
+	console.log(hasOwn(person,'foot'))
+	console.log(hasOwn(person,'level'))
+</script>
