@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<title></title>
-	<script src="./vue.js"></script>
+	<script src="../../vue.js"></script>
 </head>
 <body>
 	<div id="app">{{a}}{{b}}</div>
@@ -11,16 +11,62 @@
 </html>
 <script type="text/javascript">
 	var app = new Vue({
-		el: '#app',
+		// el: '',
 		data: {
 			a: 'a',
 			b: 'b'
 		},
 		init: function() {
-			console.log('hello!')
+			console.log('init钩子：');
+			console.log('是否编译：', this._isCompiled);
+			console.log('$el : ', this.$el);
+			console.log('_watchers : ', this._watchers);
+			console.log('vm.$options', this.$options);
+			console.log('vm._data', this._data);
+			console.log('replace：', this.$options.replace)
+			console.log('-----------------------------------------------------')
 		},
-		init: function() {
-			console.log('sfjskd')
+		created: function() {
+			console.log('created钩子：')
+			console.log('是否编译：', this._isCompiled);
+			console.log('$el : ', this.$el);
+			console.log('_watchers : ', this._watchers);
+			console.log('vm._data', this._data);
+			console.log('-----------------------------------------------------')
+
+		},
+		beforeCompile: function() {
+			console.log('beforeCompile钩子：')
+			console.log('vm.$el', this.$el);
+			console.log('vm.$el.__vue__', this.$el.__vue__);
+			console.log('-----------------------------------------------------')
+
+		},
+		compiled: function() {
+			console.log('compiled钩子：')
+			console.log('是否编译：', this._isCompiled);
+			console.log('_isAttached：', this._isAttached)
+			console.log('-----------------------------------------------------')
+
+		},
+		ready: function() {
+			// 插入文档后调用
+			console.log('ready钩子：')
+			console.log('_isAttached：', this._isAttached)
+		},
+		// 不能根据_isAttached来判断是否模板编译后是否插入文档中
+		attached: function() {
+			// 模板编译插入文档中时调用
+			console.log('attached钩子：')
+			console.log('_isAttached：', this._isAttached)
+			console.log('replace：', this.$options.replace)
+			console.log('-----------------------------------------------------')
 		}
+
 	})
+	// 如果没有el选项，就不会执行$mount方法，也就不会执行编译及以后的阶段了。
+	console.log(app);
+	// 当然也可以通过api $mount手动进行编译。
+	app.$mount('#app');
+	console.log(app);
 </script>
