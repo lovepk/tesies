@@ -8,3 +8,13 @@ git remote rm origin
 git remote add origin git@github.com:lovepk/vue1-source-learn.git
 //push代码  -u参数是方便以后用git push 命令直接提交
 git push -u origin master
+// 在本地创建新分支b1
+git branch b1
+// 切换到分支b1
+git checkout b1
+// 往github上上传新分支b1
+git push origin b1
+// 在本地删除一个分支b1
+git branch -d b1
+// 在github远程删除一个分支b1
+git push origin:b1
