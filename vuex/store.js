@@ -1,5 +1,5 @@
 define(function(require, exports, module) {
-	require('./vuex.js');
+	require('../../vuex.js');
 	const store = new Vuex.Store({
 		state: {
 			count: 0
