@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="../utility/sea.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div>{{ content }} 我是父组件，我使用了store里的count: {{ count }}</div>
+		<button @click="add()">增加</button>
+		<button @click="getcount()">获取state</button>
+		<Counter />
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	seajs.use(['./Counter.js', './store.js', './getState.js'], function(Counter, store, getState) {
+		console.log(getState)
+		// 组件要在初始化根实例前声明
+		var app = new Vue({
+			el: '#app',
+			components: { Counter },
+		// 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
+			store,
+			vuex: {
+	            getters: {
+	                getState: getState
+	            }
+	        },
+			data: {
+				content:''
+			},
+			computed: {
+				count () {
+					return this.$store.state.count;
+				}
+			},
+			methods: {
+				add() {
+					this.$store.commit('increment');
+				},
+				getcount() {
+					console.log(this.getState);
+				}
+			}
+		})
+		app.content = `学习vuex，一个转为vue设计的状态管理模式，它借鉴了flux,redux,和the elm architecture,
+		 每一个vuex应用的核心是store,store是一个容器，它包含着应用中大部分的状态。vuex和单纯的全局对象有两点不同：1，vuex的状态存储是响应式的。2，不能直接改变store中的状态。改变store中的状态的唯一途径是显示的提交mutation(变化的意思)
+		`;
+		// 但是对于模块化开发的前端，要想使用store里的数据，那么都要引入store，如果组件多的话就很麻烦了
+	})
+</script>

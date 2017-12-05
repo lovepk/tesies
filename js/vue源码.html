@@ -14,7 +14,11 @@
 		// el: '',
 		data: {
 			a: 'a',
-			b: 'b'
+			b: 'b',
+			person: {
+				name: '刘亦菲',
+				age: 17
+			}
 		},
 		init: function() {
 			console.log('init钩子：');
@@ -60,7 +64,7 @@
 			console.log('attached钩子：')
 			console.log('_isAttached：', this._isAttached)
 			console.log('replace：', this.$options.replace)
-			console.log('-----------------------------------------------------')
+			console.log('-----------------------------------------------------');
 		}
 
 	})
