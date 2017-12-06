@@ -16,29 +16,39 @@
 </html>
 <script type="text/javascript">
 	seajs.use(['./Counter.js', './store.js', './getters.js'], function(Counter, store, getState) {
-		console.log(Vuex)
-		console.log(getState)
 		// 组件要在初始化根实例前声明
 		var app = new Vue({
 			el: '#app',
 			components: { Counter },
 		// 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
 			store,
+			// 1.0可以vuex选项和store选项一起使用，2.0通过计算属性直接获取state
+			 // vuex: {
+	   //          getters: {
+	   //              getState
+	   //          }
+	   //      },
 			data: {
 				content:''
 			},
 			computed: {
 				count () {
 					return this.$store.state.count;
+				},
+				getState() {
+					return this.$store.state;
 				}
 			},
 			methods: {
 				add() {
-					this.$store.commit('increment');
+					this.$store.dispatch('incre');
 				},
 				getcount() {
-					console.log(this.$store.getters.getstate);
+					console.log(this.getState);
 				}
+			},
+			ready() {
+				console.log(this.getState);
 			}
 		})
 		app.content = `学习vuex，一个转为vue设计的状态管理模式，它借鉴了flux,redux,和the elm architecture,

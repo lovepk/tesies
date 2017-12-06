@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 		state: {
 			count: 0
 		},
-		// 通过提交mutation，我们可以在应用程序中根据mutation的名字来判断状态的变化过程。,状态的变化是同步的
+		// 通过提交mutation，我们可以在应用程序中根据mutation的名字来判断状态的变化过程。,状态的变化是同步的，动作是可以异步的
 		mutations: {
 			increment (state) {
 				state.count ++
@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 				state.count --
 			}
 		},
-		// action类似于mutation,不同的是action提交的是mutation,而不是直接变更状态,action可以包含任意异步操作。动作的发生可以是异步的
+		// action类似于mutation,不同的是action提交的是mutation,而不是直接变更状态,action可以包含任意异步操作。
 		actions: {
 			incre(context) {
 				setTimeout(function(){
@@ -21,11 +21,11 @@ define(function(require, exports, module) {
 				},2000)
 			}
 		},
-		getters: {
+		 getters: {
 		    getstate: function(state) {
-		    	return state
+		    	return state.count+5
 		    }
-		}
+		 }
 	})
 	console.log(store.state.count);
 	store.commit('increment'); //加一次
