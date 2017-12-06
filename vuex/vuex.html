@@ -15,7 +15,8 @@
 </body>
 </html>
 <script type="text/javascript">
-	seajs.use(['./Counter.js', './store.js', './getState.js'], function(Counter, store, getState) {
+	seajs.use(['./Counter.js', './store.js', './getters.js'], function(Counter, store, getState) {
+		console.log(Vuex)
 		console.log(getState)
 		// 组件要在初始化根实例前声明
 		var app = new Vue({
@@ -23,11 +24,6 @@
 			components: { Counter },
 		// 把 store 对象提供给 “store” 选项，这可以把 store 的实例注入所有的子组件
 			store,
-			vuex: {
-	            getters: {
-	                getState: getState
-	            }
-	        },
 			data: {
 				content:''
 			},
@@ -41,7 +37,7 @@
 					this.$store.commit('increment');
 				},
 				getcount() {
-					console.log(this.getState);
+					console.log(this.$store.getters.getstate);
 				}
 			}
 		})
@@ -50,4 +46,5 @@
 		`;
 		// 但是对于模块化开发的前端，要想使用store里的数据，那么都要引入store，如果组件多的话就很麻烦了
 	})
+
 </script>
