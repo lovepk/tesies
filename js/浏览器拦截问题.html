@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+ 	<a href="http://www.baidu.com" target="_blank">新窗口打开</a>
+</body>
+</html>
+<script type="text/javascript">
+	var cc = document.getElementsByTagName('a')[0];
+	cc.onclick = function(e) {
+		e.preventDefault();
+		window.open('http://www.baidu.com');
+	}
+</script>

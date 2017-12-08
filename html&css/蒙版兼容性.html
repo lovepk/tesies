@@ -19,6 +19,10 @@
 			/*此方法兼容到ie5*/
 			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#7F000000,endColorstr=#7F000000);
 		}
+		/*由于ie9同时支持rgba和filter的写法，所以还要解决这个问题*/
+		.box-wraper:not([dummy]){
+ 			filter:progid:DXImageTransform.Microsoft.gradient(enabled='false'); 
+		} 
 		.box{
 			width: 355px;
 			height: 481px;

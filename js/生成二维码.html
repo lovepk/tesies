@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="qrcode"></div>
+</body>
+</html>
+<script src="../utility/jquery-3.2.1.js"></script>
+<script src="../utility/jquery.qrcode.min.js"></script>
+<script type="text/javascript">
+	// $('#qrcode').qrcode("http:www.wchatw.com");
+
+	$('#qrcode').qrcode({
+		render: 'table',
+		width: 100,
+		height: 100,
+		text: "http:www.wchatw.com"
+	})
+</script>

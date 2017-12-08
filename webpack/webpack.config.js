@@ -30,6 +30,13 @@ module.exports = {
 				use: [
 					'file-loader'
 				]
+			},
+			// 处理数据文件
+			{
+				test: /\.xml$/,
+				use: [
+					'xml-loader'
+				]
 			}
 		]
 	}
