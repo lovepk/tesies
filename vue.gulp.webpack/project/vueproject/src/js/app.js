@@ -109,26 +109,36 @@
 	var scripts = document.scripts,
 	    boot;
 	boot = scripts[scripts.length - 1].getAttribute('data-init');
-	// 1.0的webpack 支持这种代码分割写法。
-	// 通过这个app.js来按需加载。
-	// require('./lib', function(require) {
+	// 分割写法,webpack通过本入口文件，按照switch中的require生成多个chunk文件，实际引入的时候是按需加载的
+	__webpack_require__.e/* require */(3, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(4)]; (function(require){
+	    switch (boot) {
+			case 'index-page': 
+			// 这样引入却没执行
+				__webpack_require__.e/* require */(1, function() {[__webpack_require__(2)];});
+				break;
+			case 'second-page':
+				__webpack_require__.e/* require */(2, function() {[__webpack_require__(3)];});
+				break;
+			default:
+				break;
+		}
+	}.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
+
+	// 通过require.ensure()生成一个大的chunk文件,包含了switch里所有的require的文件
+	// require.ensure([],function(require) {
 	// 	switch (boot) {
 	// 		case 'index-page': 
-	// 			require(["v/index-page.js"]);
+	// 		// 这样引入却没执行
+	// 			require(["v/index-page"]);
+	// 			break;
+	// 		case 'second-page':
+	// 			require(['v/second-page']);
+	// 			break;
+	// 		default:
 	// 			break;
 	// 	}
 	// })
 
-	// 3.0的webpack 要使用require.ensure() 来实现代码分割。
-	__webpack_require__.e/* nsure */(1, function(require){
-	    __webpack_require__(2);
-	    switch (boot) {
-			case 'index-page': 
-			// 这样引入却没执行
-				__webpack_require__(3);
-				break;
-		}
-	});
 
 /***/ })
 /******/ ]);

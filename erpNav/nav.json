@@ -1,0 +1,181 @@
+{
+    
+	"nav": [
+		{
+			"Id": 1,
+			"Name":"研发",
+			"Link":"http://www.xxx.xx",
+			"IsOpen":true,
+			"pinyinName":"yf",
+			"parentId":"0",
+			"children":[
+			]
+			
+		},
+		{
+			"Id": 2,
+			"Name":"运营",
+			"Link":"http://www.xxx.xx",
+			"IsOpen":true,//是否展开
+			"pinyinName":"yf",
+			"parentId":"0",
+			"children":[
+				{
+					"Id": 3,
+					"Name":"客户体系",
+					"Link":"http://www.xxx.xx",
+					"IsOpen":true,//是否展开
+					"pinyinName":"yf",
+					"parentId":"0",
+					"children":[
+						{
+							"Id": 4,
+							"Name":"事件维护库",
+							"Link":"http://www.xxx.xx",
+							"IsOpen":true,//是否展开
+							"pinyinName":"yf",
+							"parentId":"0",
+							"children":[
+								{
+									"Id":5,
+									"Name":"菜单示例1",
+									"Link":"http://www.xxx.xx",
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 2,
+									"Name":"菜单示例2",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 3,
+									"Name":"菜单示例3",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 4,
+									"Name":"菜单示例4",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								}
+							]
+						}
+					]
+				},
+				{
+					"Id": 1,
+					"Name":"聚客通",
+					"Link":"http://www.xxx.xx",
+					"IsOpen":true,//是否展开
+					"pinyinName":"yf",
+					"parentId":"0",
+					"children":[
+						{
+							"Id": 1,
+							"Name":"事件维护库",
+							"Link":"http://www.xxx.xx",
+							"IsOpen":true,//是否展开
+							"pinyinName":"yf",
+							"parentId":"0",
+							"children":[
+								{
+									"Id": 1,
+									"Name":"菜单示例1",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 2,
+									"Name":"菜单示例2",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 3,
+									"Name":"菜单示例3",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 4,
+									"Name":"菜单示例4",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								}
+							]
+						}
+					]
+				},
+				{
+					"Id": 1,
+					"Name":"美女时钟",
+					"Link":"http://www.xxx.xx",
+					"IsOpen":true,//是否展开
+					"pinyinName":"yf",
+					"parentId":"0",
+					"children":[
+						{
+							"Id": 1,
+							"Name":"事件维护库",
+							"Link":"http://www.xxx.xx",
+							"IsOpen":true,//是否展开
+							"pinyinName":"yf",
+							"parentId":"0",
+							"children":[
+								{
+									"Id": 1,
+									"Name":"菜单示例1",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 2,
+									"Name":"菜单示例2",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 3,
+									"Name":"菜单示例3",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								},
+								{
+									"Id": 4,
+									"Name":"菜单示例4",
+									"Link":"http://www.xxx.xx",
+									"IsOpen":true,//是否展开
+									"pinyinName":"yf",
+									"parentId":"0",
+								}
+							]
+						}
+					]
+				}												
+			]			
+		}
+	]
+}

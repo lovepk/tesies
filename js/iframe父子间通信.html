@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+
+</head>
+<body>
+<iframe src="" id="ifr">werwerwe</iframe>
+</body>
+</html>
+<script type="text/javascript">
+	function print() {
+		console.log('sssggg')
+	}
+</script>
+<script src="../utility/jquery-3.2.1.js"></script>
+<script type="text/javascript">
+	var $iFrameCon = document.getElementById('ifr').contentDocument;
+		$('#ifr').on('load',function() {
+			console.log('ssssjjjjj')
+		})
+		$(window).on('load',function() {
+			console.log('kkkkk')
+		})
+		
+	$($iFrameCon).on('click', function() {
+		window.parent.print();
+	})
+</script>

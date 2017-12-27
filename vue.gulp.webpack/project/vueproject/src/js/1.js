@@ -1,19 +1,11 @@
-webpackJsonp([1],[
-/* 0 */,
-/* 1 */,
-/* 2 */
-/***/ (function(module, exports) {
+webpackJsonp([1],{
 
-	module.exports = function() {
-		console.log('libs')
-	}
-
-/***/ }),
-/* 3 */
+/***/ 2:
 /***/ (function(module, exports) {
 
 	'use strict';
-	console.log('ssss')
+	console.log('index')
 
 /***/ })
-]);
+
+});

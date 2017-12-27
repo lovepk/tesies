@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.urlscroll {
+			width: 235px;
+			overflow: hidden;
+			height: 30px;
+			display: inline-block;
+			position: relative;			
+		}
+		.urlscroll i{
+			font-style: normal;
+			position: absolute;
+			left: 0;
+			top: 0;
+			white-space: nowrap;
+			cursor: default;
+		}
+	</style>
+	<script src="../utility/jquery-1.7.min.js"></script>
+</head>
+<body>
+	<span class="urlscroll">
+	<i id="scrolltext">https://detail.tmall.com/item.htm?id=40930830180&spm=a21bo.7932663.item.1.4154185fzaJnVK&scm=1007.13596.69621.100200300000000</i></span>
+</body>
+</html>
+<script type="text/javascript">
+	 // 无滚动条拖动文字
+        function textScroll() {
+            var $textscroll,x,startMx,moveMx,drag=false,oldMargin,marginMax,str;
+            $textscroll = $('#scrolltext');
+            $textscroll.on('mousedown', function(ev) {
+                ev = ev || window.event;
+                // if(ev.button == 0 || $.ua().isIe && ev.button == 1) {
+                //     drag = true;
+                // }
+                drag = true;
+                 // startMx = ev.pageX || ev.clientX + document.body.scrollLeft - document.body.clientLeft;
+                startMx = ev.pageX || ev.clientX;
+                str = $(this).css('left')
+                oldMargin = str.substr(0, str.length - 2) * 1;
+            })
+            $textscroll.on('mousemove', function(ev) {
+                ev = ev || window.event;
+                moveMx = ev.pageX || ev.clientX;
+                x = startMx - moveMx;
+                if(drag) {
+                    x = -x + oldMargin;
+                    str = $(this).css('width')
+                    str = str.substr(0, str.length - 2) * 1;
+                    marginMax = -(str - 235);
+                    if(x < marginMax) {
+                        $(this).css('left', marginMax + 'px');
+                    }else if(x > 0) {
+                        $(this).css('left', '0px');
+                    } else {
+                        $(this).css('left', x + 'px');
+                    }                 
+                }
+            })
+            $('body').on('mouseup', function() {
+                drag = false;
+                str = $(this).css('left')
+                oldMargin = str.substr(0, str.length - 2) * 1;
+            })
+        }
+        textScroll();
+</script>

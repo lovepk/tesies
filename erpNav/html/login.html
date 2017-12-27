@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>搜道ERP系统登录</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		html {
+			height: 100%;
+		}
+		body {
+			position: relative;
+			height: 100%;
+			background-image: url(../images/login-bg.png);
+			background-repeat: no-repeat;
+			background-size: 100% 100%;
+		}
+		.footer-wrapper {
+			height: auto;
+			width: 100%;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+		.footer-wrapper .footer-declare{
+			text-align: center;
+			color: #fff;
+			font-size: 12px;
+			line-height: 58px;
+		}
+		.login-form{
+			overflow: hidden;
+		}
+		.login-logo {
+			text-align: center;
+			margin-top: 185px;
+		}
+		.input-wrapper {
+			width: 345px;
+			height: 325px;
+			margin: 30px auto 20px;
+			background-color: #fff;
+			border-radius: 7px;
+			box-shadow:-7px 0 7px #095396, /*左边阴影*/  
+		    7px 0 7px  #095396, /*右边阴影*/  
+		    /*0 0 0 #e7e7e7, /*顶部阴影*/
+		    0 11px 11px #043F79; /*底边阴影*/  
+		}
+		.input-wrapper div {
+			margin-left: 30px;
+			zoom: 1;
+		}
+		.input-wrapper::after {
+			content: '';
+			display: block;
+			height: 0;
+			clear: both;
+			visibility: hidden;
+		}
+		.input-wrapper .title {
+			line-height: 80px;
+			font-size: 20px;
+			color: #333;
+			font-weight: 500;
+		}
+		.input-wrapper .group{
+			margin-bottom: 30px;
+			height: 40px;
+			width: 280px;
+			position: relative;
+			line-height: 40px;
+			border: 1px solid #E7E7E7;
+		}
+		.input-wrapper .group input {
+			height: 40px;
+			width: 185px;
+			float: left;
+			border:none;
+			outline: none;
+			color: #999;
+			line-height: 40px;
+		}
+		.input-wrapper .group label {
+			float: left;
+			position: relative;
+			width: 85px;
+			text-align: center;
+			font-size: 14px;
+			color: #999;
+		}
+		.input-wrapper .group label .user-icon {
+			position: absolute;
+			width: 14px;
+			height: 16px;
+			background: url('../images/user-g.png') no-repeat 100% 100%;
+			left: 10px;
+			top: 11px;
+		}
+		.input-wrapper .group label .password-icon{
+			position: absolute;
+			width: 14px;
+			height: 16px;
+			background: url('../images/psw-g.png') no-repeat 100% 100%;
+			left: 10px;
+			top: 12px;
+		}
+		.input-wrapper button {
+			display: block;
+			margin: 40px auto 0;
+			width: 298px;
+			height: 58px;
+			background: url(../images/login-btn.png) no-repeat 100% 100%;
+			border: none;
+			outline: none;
+			font-size: 16px;
+			color: #fff;
+			line-height: 16px;
+			cursor: pointer;
+		}
+		.input-wrapper button span{
+			position: relative;
+			top: -6px;
+		}
+	</style>
+</head>
+<body>
+	<form action="" class="login-form">
+		<div class="login-logo"><img src="../images/erp-logo.png" alt="erpLogo"></div>
+		<div class="input-wrapper">
+			<div class="title" onclick="clickFn(this)">用户登录</div>
+			<div class="group">
+				<label for="username"><i class="user-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;账号</label>
+				<input type="text" name="" id="username" autocomplete="off" value="sfdsdf">
+			</div>
+			<div class="group">
+				<label for="password"><i class="password-icon"></i>&nbsp;&nbsp;&nbsp;&nbsp;密码</label>
+				<input type="text" name="" id="password" autocomplete="off">
+			</div>
+			<button ><span>登&nbsp;&nbsp;录</span></button>
+		</div>
+	</form>
+	<div class="footer-wrapper">
+		<div class="footer-declare">版权所有：搜道网络科技有限公司</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+	function clickFn(event) {
+		// event = event || window.event;
+		// event.preventDefault();
+		// console.log(event)
+		console.log(this)
+	}
+</script>

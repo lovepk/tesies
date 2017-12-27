@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>erp导航优化</title>
+	<script src="../libs/jquery-easyui-1.4.5/jquery.min.js"></script>
+	<script src="../libs/juicer-min.js"></script>
+	<script src="../js/cre_nav.js"></script>
+	<style type="text/css">
+		*{ padding: 0; margin: 0; }
+		html,body{ height: 100%; background-color: #EBEEF0;}
+		i{ font-style: normal; }
+		ul li{ list-style: none; }
+		a { text-decoration: none; }
+		.clearfix::after{ content: '';display: block;height: 0;clear: both; }
+		.top-wrapper{ height: 60px; background-color: #3D90D9; }
+		.logo-wrapper { width: 450px; float: left;height: 60px; }
+		.logo-wrapper img { height: 30px; margin: 15px 0 0 18px; }
+		.user-wrapper{ width: 165px; position: relative; float: right; text-align: right; }
+		#userinfo{ font-size: 14px;color: #fff; line-height: 60px; margin-right: 50px; position: relative;}
+		#userinfo i{ position: absolute; margin-left: 10px; width: 10px; height: 5px; background: url(../images/sjd-w.png) no-repeat 100% 100%; top: 8px;}
+		.user-wrapper ul{ display:none; position: absolute; right: 15px;top: 70px; background-color: #fff; z-index: 10000; min-width: 113px; min-height: 113px; box-shadow:-1px 0 1px #dedede, 1px 0 1px  #dedede,
+		    0 5px 5px #dedede;text-align: left; }
+		.user-wrapper ul.active{ display: block; }
+		.user-wrapper ul::after{ content: '';position: absolute;width: 16px; height: 16px; background: url(../images/sjt-w.png) no-repeat 100% 100%;right:10px; top: -10px; }
+		.user-wrapper ul li:first-child{ margin-top: 10px; }
+		.user-wrapper ul li a{ font-size: 12px; line-height: 30px; color: #333; display: block;}
+		.user-wrapper ul li a img{ margin: 0 10px 0 20px; position: relative; top: 2px;}
+		.firstnav { width: auto;height: 60px;}
+		.firstnav::after{ content: '';display: block; height: 0;clear: both;}
+		.firstnav li{ list-style: none; display: inline-block; height: 60px; line-height: 60px; cursor: pointer; }
+		.firstnav li a{ display: block; color: #fff; font-size: 12px; text-decoration: none; padding: 0 20px; }
+		.firstnav li:hover{ background-color: #65A5DE; }
+		.firstnav li.active{ background-color: #fff; }
+		.firstnav li.active a { color: #418aca; }
+		/*左侧菜单栏*/
+		.aside-leftnav{ width: 267px; background-color: #fff; min-height: 100%; position: relative; overflow-Y: auto;}
+		.search-wrapper{ height: 50px; background-color: #fff;position: absolute;left: 0;top: 0;width: 100%; z-index: 2;}
+		.search-wrapper form { position: relative; width: 228px; height: 28px;border: 1px solid #e7e7e7; border-radius: 28px;margin: 10px 0 0 10px; }
+		.search-wrapper form .del{ position: absolute; width: 12px; height: 12px; background: url(../images/del.png) no-repeat 100% 100%; top: 8px; right: 10px; cursor: pointer; display: none;}
+		.search-wrapper form .del.active{ display: block; }
+		.search-wrapper form .s-icon{ position: absolute; width: 16px; height: 16px; background: url(../images/search.png) no-repeat 100% 100%; top: 7px; left: 10px;}
+		.search-wrapper form input{ outline: none; border: none;height: 28px; margin-left: 34px; width: 160px;}
+		.leftnav-wrapper{ position:absolute; width: 50px; height: 100%; background-color: #434A4F; left: 0;top: 0;}
+		.leftnav-wrapper .second-nav{ margin-top: 50px; }
+		.second-nav .second-btn { display: block; width: 46px; min-height: 36px; overflow: hidden; border-left: 4px solid #434A4F;}
+		.second-nav .second-btn span{ color: #fff; font-size: 12px; display: block; width: 26px; margin: 11px 0 11px 8px; height: 100%;}
+		.leftnav-wrapper .second-nav .second.active .second-btn{ background-color: #E2E8ED; border-color: #418ACA;}
+		.leftnav-wrapper .second-nav .second.active .second-btn span{ color: #418aca; }
+		.third-nav{ display: none; position: absolute; width: 200px; right: -200px; top: 50px; border-bottom: 1px solid #e7e7e7;}
+		.third-nav .third{ border-top: 1px solid #e7e7e7; min-height: 49px;}
+		.third-nav .third .third-btn{ font-size: 14px; color: #333; font-weight: 700; margin: 17px 0 0 30px; display: block; position: relative;}
+		.third-nav .third .third-btn i{ position: absolute; width: 4px; height: 8px; background: url(../images/sjr-g.png) no-repeat 100% 100%; left: -13px; top: 3px;}
+		.third-nav .third.active .third-btn i{ width: 8px; height: 4px; background: url(../images/sjd-g.png) no-repeat 100% 100%; left: -15px; top: 5px;}
+		.leftnav-wrapper .second-nav .second.active .third-nav{ display: block; }
+		.third-nav .third .forty-nav{ margin: 10px 0 10px 10px; line-height: 30px; display: none;}
+		.third-nav .third.active .forty-nav{ display: block; }
+		.third-nav .third.active .third-btn{ color: #418ACA; }
+		.forty-nav .forty{ width: 180px; border-radius: 5px;}
+		.forty-nav .forty .forty-btn{ font-size: 12px; color: #333; margin-left: 30px; display: block; }
+		.forty-nav .forty.active{ background-color: #418ACA; }
+		.forty-nav .forty.active .forty-btn{ color: #fff; }
+
+		/*搜索结果显示*/
+		.result-wrapper{ position: absolute; background-color: #fff; left: 0; top: 50px; min-height: 100%;width: 100%; z-index: 1;display: none;}
+		.result-wrapper .result-list li{ height: 70px; line-height: 70px;position: relative; width: 220px;margin-left: 20px;border-bottom: 1px solid #e7e7e7;}
+		.result-wrapper .result-list li a{ display: block;height: 100%; color: #333; font-size: 14px; font-weight: 700;}
+		.result-wrapper .result-list li a:hover{ color: #418aca; }
+		.result-wrapper .result-list li a.active{ color: #418aca; }
+		.result-list li a span{ position: absolute; right: 0; font-size: 12px;line-height: 12px;}
+		.result-list li a  i{ color: #418aca; }
+		.result-list li a span.second{ top: 15px; color: #666; }
+		.result-list li a span.second.active{ color: #418aca; }
+		.result-list li a span.third{ top: 35px; color: #999; }
+		.result-list li a span.third.active{ color: #418aca; }
+
+	</style>
+</head>
+<body>
+	<!-- 顶部 --> 
+		<div class="top-wrapper clearfix">
+			<div class="logo-wrapper">
+				<img src="../images/erp-logo.png">
+			</div>
+			<div style="width: 1200px;overflow: auto;float: left; height: 60px;">
+				<ul class="firstnav">
+					<li class="active"><a href=""></a>首页</li>
+					<li><a href="">客户</a></li>
+					<li><a href="">运营</a></li>
+					<li><a href="">市场</a></li>
+					<li><a href="">财务</a></li>
+					<li><a href="">人事</a></li>
+					<li><a href="">研发</a></li>
+					<li><a href="">系统</a></li>
+					<li><a href="">客户</a></li>
+					<li><a href="">运营</a></li>
+					<li><a href="">市场</a></li>
+					<li><a href="">财务</a></li>
+					<li><a href="">人事</a></li>
+					<li><a href="">研发</a></li>
+					<li><a href="">系统</a></li>
+						<li><a href="">客户</a></li>
+					<li><a href="">运营</a></li>
+					<li><a href="">市场</a></li>
+					<li><a href="">财务</a></li>
+					<li><a href="">人事</a></li>
+					<li><a href="">研发</a></li>
+					<li><a href="">系统</a></li>
+				</ul>
+			</div>
+			<div class="user-wrapper">
+				<a href="javascript:;" id="userinfo">Username<i></i></a>
+				<ul>
+					<li><a href=""><img src="../images/crm.png">CRM</a></li>
+					<li><a href=""><img src="../images/mod.png">资料修改</a></li>
+					<li><a href=""><img src="../images/mima.png">密码修改</a></li>
+					<li><a href=""><img src="../images/exit.png">退出</a></li>
+				</ul>
+			</div>
+		</div>
+	<!-- 顶部 -->
+	<!-- 左侧菜单栏 -->
+	 	<div class="aside-leftnav">
+	 		<div class="search-wrapper">
+	 			<form>
+	 				<label for="searchnav" class="s-icon"></label>
+	 				<input type="text" name="" placeholder="搜索..." id="searchnav" autocomplete="off">
+	 				<i class="del"></i>
+	 			</form>
+	 		</div>
+	 		<div class="result-wrapper">
+	 			<ul class="result-list">
+	 				<!-- <li><a href="">聚客通维护库1<span class="second">聚客通</span><span class="third">聚客通维护库</span></a></li>
+	 				<li><a href="">聚客通维护库2<span class="second">聚客通</span><span class="third">聚客通维护库</span></a></li> -->
+	 			</ul>
+	 		</div>
+	 		<div class="leftnav-wrapper">
+	 			<ul class="second-nav">
+	 				<!-- <li class="second"><span class="solid"></span><a href="" class="second-btn"><span>客户体系</span></a></li>
+	 				<li class="second active">
+	 					<span class="solid"></span>
+	 					<a href="" class="second-btn"><span>聚客通</span></a>
+	 					<ul class="third-nav">
+			 				<li class="third"><a href="" class="third-btn"><i>上</i>聚客通维护库</a></li>
+			 				<li class="third active">
+			 					<a href="" class="third-btn"><i>下</i>事件维护统计</a>
+			 					<ul class="forty-nav">
+			 						<li class="forty"><a href="" class="forty-btn">菜单示例1</a></li>
+			 						<li class="forty"><a href="" class="forty-btn">菜单示例2</a></li>
+			 						<li class="forty"><a href="" class="forty-btn">菜单示例3</a></li>
+			 						<li class="forty"><a href="" class="forty-btn">菜单示例4</a></li>
+			 						<li class="forty active"><a href="" class="forty-btn">菜单示例5</a></li>
+			 					</ul>
+			 				</li>
+			 				<li class="third"><a href="" class="third-btn"><i>上</i>活跃维护统计</a></li>
+			 			</ul>
+	 				</li>
+	 				<li class="second"><span class="solid"></span><a href="" class="second-btn"><span>美女时钟</span></a></li>
+	 				<li class="second"><span class="solid"></span><a href="" class="second-btn"><span>网红直播</span></a></li>
+	 				<li class="second"><span class="solid"></span><a href="" class="second-btn"><span>统计表</span></a></li> -->
+	 			</ul>
+	 		</div>
+	 	</div>
+	 	<!-- 左侧菜单栏 -->
+
+	 	<!-- frame -->
+	 	<div>
+	 		
+	 	</div>
+	 	<!-- frame -->
+</body>
+</html>
+<script type="text/javascript">
+	var data = {
+	nav: [
+		{
+			Id: 2,
+			Name: '运营',
+			py: 'yy',
+			children: [
+				{	
+					Id: 3,
+					Name: "事件维护统计",
+					py: 'khtx',
+					children: [
+						{
+							Id: 4,
+							Name: "维护库",
+							py: 'whk',
+							children: [
+							]
+						},
+						{
+							Id: 5,
+							Name: "事件维护统计",
+							py: 'sjwhtj',
+							children: [
+								{
+									Id:6,
+									py: 'cdsl1',
+									Name: "菜单示例1"
+								},
+								{
+									Id:7,
+									py: 'cdsl2',
+									Name: "菜单示例2"	
+								},
+								{
+									Id:8,
+									py: 'cdsl3',
+									Name: "菜单示例3"
+								},
+								{
+									Id:9,
+									py: 'cdsl4',
+									Name: "菜单示例4"	
+								}
+							]
+						},
+						{
+							Id:10,
+							Name: "活跃维护统计",
+							py:'hywhtj',
+							children: [
+
+							]
+						}
+					]
+				},
+				{
+					Id:11,
+					open: true,
+					Name: "维护库",
+					children: [
+						{
+							Id:12,
+							Name: "维护库",
+							children: [
+							]
+						},
+						{
+							Id:13,
+							open: true,
+							Name: "事件维护统计",
+							children: [
+								{
+									Id:14,
+									Name: "菜单示例5"
+								},
+								{
+									Id:15,
+									Name: "菜单示例6"	
+								},
+								{
+									Id:16,
+									Name: "菜单示例7"
+								},
+								{
+									Id:17,
+									open: true,
+									Name: "菜单示例8"	
+								}
+							]
+						},
+						{
+							Id:18,
+							Name: "活跃维护统计",
+							children: [
+
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			Id: 19,
+			Name: '市场',
+			children: [
+				{	
+					Id: 20,
+					Name: "美女时钟",
+					children: [
+						{
+							Id: 21,
+							Name: "维护库",
+							children: [
+							]
+						},
+						{
+							Id: 22,
+							Name: "聚客通维护库",
+							children: [
+								{
+									Id:23,
+									Name: "<a style=\"color: red;\">1243432</a>"
+								},
+								{
+									Id:24,
+									Name: "菜单示例2"	
+								},
+								{
+									Id:25,
+									Name: "菜单示例3"
+								},
+								{
+									Id:26,
+									Name: "菜单示例4"	
+								}
+							]
+						},
+						{
+							Id:27,
+							Name: "活跃维护统计",
+							children: [
+
+							]
+						}
+					]
+				},
+				{
+					Id:28,
+					open: true,
+					Name: "维护库",
+					children: [
+						{
+							Id:29,
+							Name: "维护库",
+							children: [
+							]
+						},
+						{
+							Id:30,
+							open: true,
+							Name: "美女时钟维护库",
+							children: [
+								{
+									Id:31,
+									Name: "菜单示例5"
+								},
+								{
+									Id:32,
+									Name: "菜单示例6"	
+								},
+								{
+									Id:33,
+									Name: "菜单示例7"
+								},
+								{
+									Id:34,
+									open: true,
+									Name: "菜单示例8"	
+								}
+							]
+						},
+						{
+							Id:35,
+							Name: "统计",
+							children: [
+
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+		
+};
+	$(function() {
+		var $userinfo = $('.user-wrapper ul');
+		$('#userinfo').on('click', function(ev) {
+			ev = ev || window.event;
+			ev.preventDefault();
+			ev.stopPropagation();
+			$userinfo.toggleClass('active');
+		})
+		function hideUserInfo() {
+			$('#userinfo').removeClass('active');
+		}
+		$('body').on('click', function() {
+			$userinfo.removeClass('active');
+		})
+		// iframe绑定事件
+		$('iframe').on('load', function() {
+			var $iframe = $(document.getElementByTagName('iframe'));
+			$iframe.on('click', function() {
+				hideUserInfo();
+			})
+			
+		})
+		menu.init(data);
+	})
+</script>

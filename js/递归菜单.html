@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<div id="divmsg"></div>
+</body>
+</html>
+<script>
+	// var data = [];
+	// var finds = [];
+	// resevData("", data);
+	// function resevData(key, children){
+	// 	if(children.length <= 0)
+	// 		return;
+
+	// 	for (var i = 0; i <= children.length; i++) {
+	// 		if(children[i].name.indexOf(key){
+	// 			finds.push(children[i]);
+	// 		}
+	// 		resevData(key, children[i].children);
+	// 	}
+	// }		var data = [];
+	// 	var finds = [];
+
+	// 	resevData("", data);
+	var content = ' 。1986年11月2日出生在福建省福州乐视，2008年毕业于浙江传媒学院广播电视编导专业。2014年7月至9月份，乐视';
+
+    var reg = /(乐视)/gi;
+    var res = '';
+    
+    res = content.replace(reg, function($, $1, $2) {
+        console.log($)
+        return '<span style="color:red">' + $ + '</span>';
+    })
+    
+    console.log(res)
+</script>

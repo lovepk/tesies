@@ -1,2 +1,2 @@
 'use strict';
-console.log('ssss')
+console.log('index')
