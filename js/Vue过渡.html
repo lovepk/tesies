@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+	/*作为进入的结束状态，也作为结束的开始状态*/
+		.my-transition-transition{
+			transition: all 0.3s ease;
+			height: 60px;
+			line-height: 60px;
+			background-color: #eee;
+			overflow: hidden;
+		}
+		/*定义进入的开始状态，离开的而结束状态*/
+		.my-transition-enter, .my-transition-leave{
+			height: 0;
+			opacity: 0;
+		}
+	</style>
+	<!-- <script src="../../vue.js"></script> -->
+	<script src="../utility/jquery-1.7.min.js"></script>
+</head>
+<body>
+<!-- 	<div id="app">
+		<div v-if="show" transition="my-transition">{{ content }}</div>
+	</div> -->
+	<form action="http://www.baidu.com" data-url="http://www.baidu.com">
+		
+	</form>
+	<div class="data"></div>
+	<div class="attr"></div>
+</body>
+</html>
+<script type="text/javascript">
+	// Vue.transition('my-transition', {
+	// 	enter: function () { console.log('enter'); },
+ //  		leave: function () { console.log('leave'); }
+	// })
+	// var app = new Vue({
+	// 	el: '#app',
+	// 	data: {
+	// 		content: 'Vue过渡',
+	// 		show: false
+	// 	}
+	// })
+	// setTimeout(function() {
+	// 	app.show = true
+	// },2000)
+	// setTimeout(function() {
+	// 	// app.show = false
+	// },5000)
+
+
+	// $('#app').unbind().bind('click',function() {
+	// 	console.log('111')
+	// 	return false;
+	// })
+	// $('body').on('click', function() {
+	// 	console.log('222')
+	// })
+	$('.data').text('data-url:'+$('form').data('url'));
+	$('.attr').text('attr:'+$('form').attr('data-url'));
+	window.open("http://www.w3school.com.cn?t=20171229&name=wangjun")
+</script>

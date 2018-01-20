@@ -1,0 +1,98 @@
+<html> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<style type="text/css">
+		.upload-modal{ width: 400px; border-radius: 5px; border: 1px solid #e7e7e7;}
+		.upload-con{ border-bottom: 1px solid #e7e7e7;border-top: 1px solid #e7e7e7; min-height: 150px;}
+		.sel-file{ margin: 20px 0 0 100px; }
+		.sel-file::after{ content: ""; display: block; height: 0; clear: both; zoom: 1; }
+		.label{  width: 80px; font-size: 14px; color: #333; float: left; line-height: 35px;}
+		.operate{ float: left; min-width: 100px;}
+		.operate .show{ color: #519ED4; font-size: 13px; line-height: 35px; cursor: pointer;}
+		.operate .btn{ width: 60px; height: 35px; line-height: 35px; text-align: center; color: #fff; background-color: #519ED4; border-radius: 6px; cursor: pointer; }
+		.operate .btn.resel{ background-color: #F4BA60; }
+
+	</style>
+		<script src="../libs/jquery-1.7.min.js"></script>
+</head> 
+<body> 
+	<!-- <input type="file" name="contractFileName" style="width: 500px;" onchange="fileChange(this);"/>  -->
+	<div class="upload-modal">
+		<div class="title">上传合同</div>
+		<div class="upload-con">
+			<div class="sel-file">
+				<div class="label">选择文件</div>
+				<div class="operate">
+					<div class="show"></div>
+					<div class="btn">浏览</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+	<form>
+		<input type="file" name="" style="display: none;" onchange="fileChange(this)">
+	</form>
+</body> 
+</html> 
+<script type="text/javascript"> 
+$('.upload-con').on('click', '.btn', function() {
+	$('input[type=file]').click();
+})
+function fileChange(target) {
+	if(validFile(target)) {
+		var fileName = target.value;
+		var index = fileName.lastIndexOf('\\');
+		fileName = fileName.substr(index+1);
+		$('.show').text(fileName);
+		$('.operate .btn').text('重选').addClass('resel');
+	}
+}
+function validFile(target) { 
+	var isIE = /msie/i.test(navigator.userAgent) && !window.opera; 
+	var fileSize = 0; 
+	var filetypes =[".zip", ".rar"]; 
+	var filepath = target.value; 
+	console.log(filepath)
+	var filemaxsize = 1024*2;//2M 
+	if(filepath){ 
+		var isnext = false; 
+		var fileend = filepath.substring(filepath.indexOf(".")); 
+		if(filetypes && filetypes.length>0){ 
+			for(var i =0; i<filetypes.length;i++){ 
+				if(filetypes[i]==fileend){ 
+					isnext = true; 
+					break; 
+				} 
+			} 
+		} 
+		if(!isnext){ 
+			alert("不接受此文件类型！"); 
+			target.value =""; 
+			return false; 
+		} 
+	}else{ 
+		return false; 
+	} 
+	if (isIE && !target.files) { 
+		var filePath = target.value; 
+		var fileSystem = new ActiveXObject("Scripting.FileSystemObject"); 
+		if(!fileSystem.FileExists(filePath)){ 
+			alert("附件不存在，请重新输入！"); 
+			return false; 
+		} 
+		var file = fileSystem.GetFile (filePath); 
+		console.dir(file)
+		fileSize = file.Size; 
+	} else { 
+		fileSize = target.files[0].size; 
+	} 
+
+	var size = fileSize / 1024; 
+	if(size>filemaxsize){ 
+		alert("附件大小不能大于"+filemaxsize/1024+"M！"); 
+		target.value =""; 
+		return false; 
+	} 
+	return true;
+} 
+</script> 
