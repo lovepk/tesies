@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="../utility/jquery-1.7.min.js"></script>
+</head>
+<body>
+ <span contenteditable="true" id="ss">ssfdhj</span>
+</body>
+</html>
+<script type="text/javascript">
+	$('#ss').on('focus', function(event) {
+		document.addEventListener('keydown', function(e) {
+			if(e.keyCode == 13) {
+				e.preventDefault();
+				return;
+			}
+		})
+	})
+</script>

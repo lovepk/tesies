@@ -5,10 +5,14 @@
 	<title></title>
 </head>
 <body>
-
+	<script type="text/javascript">
+		var aab = [1,2,3]
+	</script>
 </body>
 </html>
 <script type="text/javascript">
+	var aab;
+	console.log(aab)
 	console.log(a);//变量提升，指的是变量的声明的提升，赋值可是没有提升的，此处相当于在console.log(a)上面声明了a:var a;但是没初始化。所以是undefined;
 	var a = 1;
 	// 函数提升
