@@ -1,6 +1,10 @@
 import React from 'react';
 
-const Input = ({newtodo, onChange, onSubmit}) => {
+const Input = ({
+	newtodo,
+	onChange,
+	onSubmit
+}) => {
 	return (
 		<form onSubmit={onSubmit}>
 			<div>

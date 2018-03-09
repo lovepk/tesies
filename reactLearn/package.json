@@ -7,7 +7,9 @@
     "start": "webpack-dev-server --hot --inline --colors --content-base ./build",
     "build": "webpack --progress --colors",
     "start-redux": "webpack-dev-server --hot --inline --colors --content-base ./build-redux",
-    "build-redux": "webpack --config webpack.config.redux.js --progress --colors"
+    "build-redux": "webpack --config webpack.config.redux.js --progress --colors",
+    "start-wzq": "webpack-dev-server --hot --inline --colors --content-base ./build-wzq", 
+    "build-wzq": "webpack --config webpack.config.wzq.js --progress --colors"
   },
   "author": "",
   "license": "ISC",
