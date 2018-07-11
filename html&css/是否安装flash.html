@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+  // if(self.getFlashVersion() > 0) {
+  //       self.copyOneKey();
+  //     } else {
+  //       var head= document.getElementsByTagName('head')[0];
+  //       var script= document.createElement('script');
+  //       script.type= 'text/javascript';
+  //       script.src= 'http://a.mysodao.com/lib/zeroclipboard-1.1.7/dist/clipboard.js';
+  //       head.appendChild(script); 
+  //       script.onload = script.onreadystatechange = function() {
+  //       if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete" ) {
+  //         self.copyOneKeyNoFlash();
+  //         script.onload = script.onreadystatechange = null;
+  //       }}
+        
+  //     }
+	var getFlashVersion = function() { 
+        try { 
+            if(typeof window.ActiveXObject != 'undefined') {
+               return parseInt((new ActiveXObject('ShockwaveFlash.ShockwaveFlash')).GetVariable("$version").split(" ")[1].split(",")[0], 10); 
+             }else{
+              return parseInt(navigator.plugins["Shockwave Flash"].description.split(' ')[2], 10);
+             }
+        } catch(e){
+            return 0;
+        }
+	}
+  copyOneKey: function() {
+      ZeroClipboard.setDefaults({
+            trustedDomains: ['*'] //设置信任域名
+        });
+      var $bth = $('#copybtn');
+      var clip = new ZeroClipboard($bth);
+      $('#copybtn').on('click', function(event) {
+        clip.on("noflash",function(client,args){
+          msg.alert('请检查浏览器是否安装并开启flash插件，然后刷新页面后重试');
+        });
+      })
+      $(document.body).on('click', '#global-zeroclipboard-html-bridge', function() {
+        if(!$bth.hasClass('disabled')) {
+          msg.alert('请检查浏览器是否安装并开启flash插件，然后刷新页面后重试');
+        }
+      })
+      clip.on('complete', function (client, args) {
+          if(args.text != '') {
+            $bth.addClass('disabled');
+            layer.msg('复制成功');
+          }
+        })
+    },
+    copyOneKeyNoFlash: function() {
+      $('#copybtn').attr('data-clipboard-target', '#copyarea');
+      var clipboard = new ClipboardJS('#copybtn');
+          clipboard.on('success', function(e) {
+              layer.msg('复制成功');
+          });
+
+          clipboard.on('error', function(e) {
+              layer.msg('复制失败');
+          });
+    },
+	console.log(getFlashVersion())
+</script>

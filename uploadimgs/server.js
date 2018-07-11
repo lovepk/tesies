@@ -13,11 +13,16 @@ var storage = multer.diskStorage({
 		cb(null, newname);
 	}
 });
+
 var uploads = multer({storage});
 app.use(express.static(__dirname + '/www'));
 app.post('/uploadimg', uploads.array('file'), function(req, res) {
 	console.log(req.body)
 	res.send({success: true,url: req.body.name});
+})
+app.get('/welcome', function(req, res) {
+	console.log('ok')
+	res.send({success: true, msg: '你好！'})
 })
 
 app.listen(3001, function() {

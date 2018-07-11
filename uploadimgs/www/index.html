@@ -108,6 +108,13 @@
 	setTimeout(function() {
 		$('#box').show();
 	},3000)
+	$.ajax({
+		url: 'http://xcx.test.com:3001/welcome',
+		type: 'GET',
+		success: function(res) {
+			console.log(res)
+		}
+	})
 	// $.ajax({
 	// 	url: '/uploadimg',
 	// 	method: 'GET',
